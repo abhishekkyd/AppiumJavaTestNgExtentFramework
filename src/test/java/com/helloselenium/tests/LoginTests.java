@@ -1,8 +1,9 @@
 package com.helloselenium.tests;
 
+import com.helloselenium.utils.JSONReader;
 import org.testng.annotations.Test;
 
-import com.helloselenium.Base;
+import com.helloselenium.BaseTest;
 import com.helloselenium.constant.PathConstants;
 import com.helloselenium.screens.LoginScreen;
 import com.helloselenium.screens.ProductsScreen;
@@ -10,43 +11,26 @@ import com.helloselenium.utils.ExcelUtility;
 import com.helloselenium.utils.TestUtils;
 
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 
 import java.io.File;
-import java.io.InputStream;
 import java.lang.reflect.Method;
 
-import org.json.JSONObject;
-import org.json.JSONTokener;
 import org.testng.Assert;
 
 
-public class LoginTests extends Base{
+public class LoginTests extends BaseTest{
 	LoginScreen loginScreen;
 	ProductsScreen productsScreen;
-	JSONObject loginUsers;
 	ExcelUtility data;
+	JSONReader jsonReader;
 	String sheet = "testData";
 	TestUtils utils = new TestUtils();
 
 	@BeforeClass
 	public void beforeClass() throws Exception {
 		data = new ExcelUtility(System.getProperty("user.dir")+File.separator+PathConstants.testData);
-		InputStream datais = null;
-		try {
-			String dataFileName = "data/loginUsers.json";
-			datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
-			JSONTokener tokener = new JSONTokener(datais);
-			loginUsers = new JSONObject(tokener);
-		} catch(Exception e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if(datais != null) {
-				datais.close();
-			}
-		}
+		jsonReader = new JSONReader(PathConstants.jsonPath);
 		closeApp();
 		launchApp();
 	}
@@ -59,8 +43,8 @@ public class LoginTests extends Base{
 
 	@Test
 	public void invalidUserName() {
-		loginScreen.enterUserName(loginUsers.getJSONObject("invalidUser").getString("username"));
-		loginScreen.enterPassword(loginUsers.getJSONObject("invalidUser").getString("password"));
+		loginScreen.enterUserName(jsonReader.getValue("invalidUser","username"));
+		loginScreen.enterPassword(jsonReader.getValue("invalidUser","password"));
 		loginScreen.pressLoginBtn();
 
 		String actualErrTxt = loginScreen.getErrTxt() + "sdfdf";
@@ -83,8 +67,8 @@ public class LoginTests extends Base{
 
 	@Test
 	public void successfulLogin() {
-		loginScreen.enterUserName(loginUsers.getJSONObject("validUser").getString("username"));
-		loginScreen.enterPassword(loginUsers.getJSONObject("validUser").getString("password"));
+		loginScreen.enterUserName(jsonReader.getValue("validUser","username"));
+		loginScreen.enterPassword(jsonReader.getValue("validUser","password"));
 		productsScreen = loginScreen.pressLoginBtn();
 
 		String actualProductTitle = productsScreen.getTitle();		  

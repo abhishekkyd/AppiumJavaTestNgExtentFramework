@@ -19,7 +19,7 @@ import org.testng.Reporter;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import com.helloselenium.Base;
+import com.helloselenium.BaseTest;
 import com.helloselenium.constant.PathConstants;
 import com.helloselenium.report.ExtentReport;
 import com.helloselenium.utils.TestUtils;
@@ -36,7 +36,7 @@ public class TestListener implements ITestListener {
 			  utils.log().error(sw.toString());
 		}
 		
-		Base base = new Base();
+		BaseTest base = new BaseTest();
 		File file = base.getDriver().getScreenshotAs(OutputType.FILE);
 		
 		byte[] encoded = null;
@@ -78,7 +78,7 @@ public class TestListener implements ITestListener {
 
 	@Override
 	public void onTestStart(ITestResult result) {
-		Base base = new Base();
+		BaseTest base = new BaseTest();
 		ExtentReport.startTest(result.getName(), result.getMethod().getDescription())
 		.assignCategory(base.getPlatform() + "_" + base.getDeviceName())
 		.assignAuthor("AutherName");

@@ -1,15 +1,13 @@
 package com.helloselenium.screens;
 
-import com.helloselenium.Base;
-import com.helloselenium.utils.TestUtils;
+import com.helloselenium.BaseTest;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 
-public class SettingsScreen extends Base{
-	TestUtils utils = new TestUtils();
-	
+public class SettingsScreen extends BaseTest{
+		
 	@AndroidFindBy (accessibility="test-LOGOUT") 
 	@iOSXCUITFindBy (id = "test-LOGOUT")
 	private MobileElement logoutBtn;

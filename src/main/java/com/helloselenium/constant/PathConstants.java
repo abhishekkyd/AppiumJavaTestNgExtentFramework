@@ -10,5 +10,7 @@ public interface PathConstants {
 	String severlogs = "artifacts" + File.separator + "Severlogs";
 	String logs = "artifacts" + File.separator + "logs";
 	String testData = "src/test/resources/data/TestData.xlsx";
+	String xmlPath = "strings/strings.xml";
+	String jsonPath = "data/loginUsers.json";
 
 }

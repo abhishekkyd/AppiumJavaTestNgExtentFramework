@@ -1,9 +1,11 @@
 package com.helloselenium.tests;
 
+import com.helloselenium.constant.PathConstants;
+import com.helloselenium.utils.JSONReader;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import com.helloselenium.Base;
+import com.helloselenium.BaseTest;
 import com.helloselenium.screens.LoginScreen;
 import com.helloselenium.screens.ProductDetailsScreen;
 import com.helloselenium.screens.ProductsScreen;
@@ -14,36 +16,20 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 
-import java.io.InputStream;
 import java.lang.reflect.Method;
 
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
-public class ProductTests extends Base{
+public class ProductTests extends BaseTest{
 	LoginScreen loginScreen;
 	ProductsScreen productsScreen;
 	SettingsScreen settingsScreen;
 	ProductDetailsScreen productDetailsScreen;
-	JSONObject loginUsers;
+	JSONReader jsonReader;
 	TestUtils utils = new TestUtils();
 
 	@BeforeClass
 	public void beforeClass() throws Exception {
-		InputStream datais = null;
-		try {
-			String dataFileName = "data/loginUsers.json";
-			datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
-			JSONTokener tokener = new JSONTokener(datais);
-			loginUsers = new JSONObject(tokener);
-		} catch(Exception e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if(datais != null) {
-				datais.close();
-			}
-		}
+		jsonReader = new JSONReader(PathConstants.jsonPath);
 		closeApp();
 		launchApp();
 	}
@@ -51,9 +37,9 @@ public class ProductTests extends Base{
 	@BeforeMethod
 	public void beforeMethod(Method m) {
 		utils.log().info("\n" + "****** starting test:" + m.getName() + "******" + "\n");
-		loginScreen = new LoginScreen();		  
-		productsScreen = loginScreen.login(loginUsers.getJSONObject("validUser").getString("username"), 
-				loginUsers.getJSONObject("validUser").getString("password"));
+		loginScreen = new LoginScreen();	
+		/*productsScreen = loginScreen.login(jsonReader.getValue("validUser","username"),
+				jsonReader.getValue("validUser","password"));*/
 	}
 
 	@AfterMethod
@@ -65,7 +51,10 @@ public class ProductTests extends Base{
 	@Test
 	public void validateProductOnproductsScreen() {
 		SoftAssert sa = new SoftAssert();
-
+		
+		productsScreen = loginScreen.login(jsonReader.getValue("validUser","username"),
+				jsonReader.getValue("validUser","password"));
+		
 		String SLBTitle = productsScreen.getSLBTitle();
 		sa.assertEquals(SLBTitle, getStrings().get("products_page_slb_title"));
 
@@ -78,6 +67,9 @@ public class ProductTests extends Base{
 	@Test
 	public void validateProductOnproductDetailsScreen() {
 		SoftAssert sa = new SoftAssert();
+		
+		productsScreen = loginScreen.login(jsonReader.getValue("validUser","username"),
+				jsonReader.getValue("validUser","password"));
 
 		productDetailsScreen = productsScreen.pressSLBTitle();
 

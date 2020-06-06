@@ -1,38 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="tests">
-    <test name="Pixel_3">
-        <listeners>
-            <listener class-name="com.helloselenium.listeners.TestListener"/>
-        </listeners>
-        <parameter name="emulator" value="true"/>
-        <parameter name="platformName" value="Android"/>
-        <parameter name="udid" value="emulator-5554"/>
-        <parameter name="deviceName" value="Pixel_3"/>
-        <parameter name="systemPort" value="10001"/>
-        <parameter name="chromeDriverPort" value="11001"/>
-        <classes>
-            <class name="com.helloselenium.tests.LoginTests"></class>
-            <methods>
-                <include name="invalidPassword"/>
-            </methods>
-            <!-- <class name="com.helloselenium.tests.ProductTests"></class> -->
-        </classes>
-    </test>
-    <test name="iPhone11">
-        <listeners>
-            <listener class-name="com.helloselenium.listeners.TestListener"/>
-        </listeners>
-        <parameter name="platformName" value="iOS"/>
-        <parameter name="udid" value="replace_with_device_udid"/>
-        <parameter name="deviceName" value="iPhone11"/>
-        <parameter name="wdaLocalPort" value="10001"/>
-        <parameter name="webkitDebugProxyPort" value="11001"/>
-        <classes>
-            <class name="com.helloselenium.tests.LoginTests"></class>
-            <methods>
-                <include name="invalidPassword"/>
-            </methods>
-            <!--            <class name="com.helloselenium.tests.ProductTests"></class>-->
-        </classes>
-    </test>
-</suite>
+	<test name="Pixel_3">
+		<listeners>
+			<listener
+				class-name="com.helloselenium.listeners.TestListener" />
+		</listeners>
+		<parameter name="emulator" value="true" />
+		<parameter name="platformName" value="Android" />
+		<parameter name="udid" value="emulator-5554" />
+		<parameter name="deviceName" value="Pixel_3" />
+		<parameter name="systemPort" value="10001" />
+		<parameter name="chromeDriverPort" value="11001" />
+		<classes>
+			<class name="com.helloselenium.tests.LoginTests">
+				<methods>
+					<include name="invalidPassword" />
+				</methods>
+			</class>
+			<class name="com.helloselenium.tests.ProductTests"></class>
+			<methods>
+				<include name="validateProductOnproductsScreen" />
+			</methods>
+		</classes>
+	</test>
+	<test name="Nexus_5X">
+		<listeners>
+			<listener
+				class-name="com.helloselenium.listeners.TestListener" />
+		</listeners>
+		<parameter name="emulator" value="true" />
+		<parameter name="platformName" value="Android" />
+		<parameter name="udid" value="emulator-5556" />
+		<parameter name="deviceName" value="Nexus_5X" />
+		<parameter name="systemPort" value="10000" />
+		<parameter name="chromeDriverPort" value="11000" />
+		<classes>
+			<!-- <class name="com.helloselenium.tests.LoginTests"> <methods> <include 
+				name="invalidPassword" /> </methods> </class> -->
+			<class name="com.helloselenium.tests.ProductTests">
+				<methods>
+					<include name="validateProductOnproductDetailsScreen" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<!-- <test name="iPhone11">
+		<listeners>
+			<listener
+				class-name="com.helloselenium.listeners.TestListener" />
+		</listeners>
+		<parameter name="platformName" value="iOS" />
+		<parameter name="udid" value="replace_with_device_udid" />
+		<parameter name="deviceName" value="iPhone11" />
+		<parameter name="wdaLocalPort" value="10001" />
+		<parameter name="webkitDebugProxyPort" value="11001" />
+		<classes>
+			<class name="com.helloselenium.tests.LoginTests"></class>
+			<class name="com.helloselenium.tests.ProductTests"></class>
+		</classes>
+	</test> -->
+</suite> <!-- Suite -->

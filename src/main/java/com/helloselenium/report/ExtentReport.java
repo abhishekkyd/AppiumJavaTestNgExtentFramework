@@ -7,7 +7,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import com.helloselenium.Base;
+import com.helloselenium.BaseTest;
 import com.helloselenium.constant.PathConstants;
 
 public class ExtentReport {
@@ -16,7 +16,7 @@ public class ExtentReport {
     static Map<Integer, ExtentTest> extentTestMap = new HashMap<Integer, ExtentTest>();
     
     public synchronized static ExtentReports getReporter() {
-    	Base base = new Base();
+    	BaseTest base = new BaseTest();
         if (extent == null) {
         	ExtentHtmlReporter html = new ExtentHtmlReporter(filePath+"_"+base.getDateTime()+".html");
         	html.config().setDocumentTitle("Appium Framework");
