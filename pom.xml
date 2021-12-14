@@ -20,7 +20,7 @@
 		<testng.version>7.1.0</testng.version>
 		<extentreports.version>4.1.2</extentreports.version>
 		<json.version>20190722</json.version>
-		<log4jcore.version>2.13.2</log4jcore.version>
+		<log4jcore.version>2.16.0</log4jcore.version>
 		<log4japi.version>2.13.1</log4japi.version>
 		<poi.version>4.1.0</poi.version>
 		<maven.surefile.version>2.20</maven.surefile.version>
